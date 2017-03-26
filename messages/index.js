@@ -138,11 +138,11 @@ bot.dialog('/setgenre', [
 bot.dialog('/recmovie', [
     function(session,results,next){
         var myRes = "Test string";
-        next({response: myRes});
+        session.userData.recommendation;
     },
     
     function (session,results) {
-        session.send('I think you should watch a movie',results.response);
+        session.send('I think you should watch a %s movie',session.userData.recommendation);
         session.endDialog();
     }
 ]);
