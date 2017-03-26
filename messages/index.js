@@ -115,7 +115,7 @@ intents.matches('End', [
 
 bot.dialog('/setgenre',[
     function(session){
-        session.send( "What type of movie do you want to watch?");
+        //session.send( "What type of movie do you want to watch?");
         genrePrompt.beginDialog(session);
     },
     function(session,results){
