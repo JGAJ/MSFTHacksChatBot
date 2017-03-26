@@ -23,11 +23,11 @@ exports.create = function (bot) {
             // - This isn't a waterfall so you shouldn't call any of the built-in Prompts.
             session.send(args.prompt || "What type of movie do you want to watch?");
         })
-        .matches('genre',[function(session,args,next){
+        .matches('pickGenre',[function(session,args,next){
             //session.send(args);
             session.send('found a genre');
             
-            var myGenre = prompt.EntityRecognizer.findEntity(args.intent.entities, 'genre');
+            var myGenre = prompt.EntityRecognizer.findEntity(args.intent.entities, 'Genres');
             //session.send('that genre is %s',myGenre.entity);
             if(!myGenre){
                 session.send(session.dialogData.retryPrompt);
