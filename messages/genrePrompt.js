@@ -32,7 +32,7 @@ exports.create = function (bot) {
             session.send('found a genre');
             session.send(args.entities[0]);
             var myGenre = builder.EntityRecognizer.findEntity(args.entities, 'genre');
-            session.send('here %s',myGenre);
+            session.send(builder.EntityRecognizer.findEntity(args.entities, 'genre'));
             if(!myGenre){
                 session.send(session.dialogData.retryPrompt);
             } 
