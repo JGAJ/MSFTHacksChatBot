@@ -1,6 +1,6 @@
 /*-----------------------------------------------------------------------------
-This template demonstrates how to use an IntentDialog with a LuisRecognizer to add 
-natural language support to a bot. 
+This template demonstrates how to use an IntentDialog with a LuisRecognizer to add
+natural language support to a bot.
 For a complete walkthrough of creating this type of bot see the article at
 http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 -----------------------------------------------------------------------------*/
@@ -33,10 +33,10 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
 .onDefault((session) => {
-    session.send('Please try again, I didnt understand \'%s\'.', session.message.text);
+    session.send('Please type again, I didnt understand \'%s\'.', session.message.text);
 });
 
-bot.dialog('/', intents);    
+bot.dialog('/', intents);
 
 if (useEmulator) {
     var restify = require('restify');
@@ -44,8 +44,7 @@ if (useEmulator) {
     server.listen(3978, function() {
         console.log('test bot endpont at http://localhost:3978/api/messages');
     });
-    server.post('/api/messages', connector.listen());    
+    server.post('/api/messages', connector.listen());
 } else {
     module.exports = { default: connector.listen() }
 }
-
