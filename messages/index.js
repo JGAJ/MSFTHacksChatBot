@@ -8,7 +8,9 @@ http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 var genrePrompt = require('./genrePrompt');
-var myGenres = ['Action','Comedy','Drama']
+var myGenres = ['Action','Comedy','Drama'];
+
+// process.env.NODE_ENV = 'development';
 var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
@@ -104,7 +106,7 @@ intents.matches('End', [
 
 intents.matches('pickGenre',[
 function (session,args) {
-    var entity = builder.EntityRecognizer.findEntity(args.entities, '\myGenres');    
+    var entity = builder.EntityRecognizer.findEntity(args.entities, '\myGenres');
     }
 ]);
 
@@ -114,8 +116,14 @@ bot.dialog('/setgenre', [
     },
     function (session, results) {
         session.userData.Genre = results.response;
-        
-        session.endDialog();
+        var search = require('./search');
+        var resultPromise = search('movie', session.userData.Genre);
+        resultPromise.then(function(data, err) {
+          console.log('The result in index.js is: ' + data);
+          session.send('What about ' + data + '?');
+          session.endDialog();
+        });
+
     }
 ]);
 
@@ -128,9 +136,9 @@ bot.dialog('/setgenre', [
 //         if(!results.response){
 //             session.send('Sorry!');
 //         }
-        
+
 //         session.endDialog();
-        
+
 //     }
 // ]);
 
