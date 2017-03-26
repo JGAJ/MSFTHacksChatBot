@@ -15,14 +15,14 @@ exports.beginDialog = function (session, options) {
 
 exports.create = function (bot) {
     var prompt = new builder.IntentDialog({ recognizers: [recognizer] })
-        .onBegin(function (session, args) {
-            // Save args passed to prompt
-            session.dialogData.retryPrompt = args.retryPrompt || "Sorry I didnt catch that. What would you like to watch?  (Or do you give up?)";
+        // .onBegin(function (session, args) {
+        //     // Save args passed to prompt
+        //     session.dialogData.retryPrompt = args.retryPrompt || "Sorry I didnt catch that. What would you like to watch?  (Or do you give up?)";
 
-            // Send initial prompt
-            // - This isn't a waterfall so you shouldn't call any of the built-in Prompts.
-            session.send(args.prompt || "What type of movie do you want to watch?");
-        })
+        //     // Send initial prompt
+        //     // - This isn't a waterfall so you shouldn't call any of the built-in Prompts.
+        //     session.send(args.prompt || "What type of movie do you want to watch?");
+        // })
         .matches(/(give up|quit|skip|yes)/i, function (session) {
             // Return 'false' to indicate they gave up
             session.endDialogWithResult({ response: false });
