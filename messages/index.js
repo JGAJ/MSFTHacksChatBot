@@ -103,34 +103,35 @@ intents.matches('End', [
 ]);
 
 intents.matches('pickGenre',[
-function (session) {
-    
+function (session,args) {
+    var entity = builder.EntityRecognizer.findEntity(args.entities, '\myGenres');    
     }
 ]);
-// bot.dialog('/setgenre', [
-//     function (session) {
-//         builder.Prompts.text(session, 'What would you like to watch today?');
+
+bot.dialog('/setgenre', [
+    function (session) {
+        builder.Prompts.text(session, 'What would you like to watch today?');
+    },
+    function (session, results) {
+        session.userData.Genre = results.response;
+        session.endDialog();
+    }
+]);
+
+// bot.dialog('/setgenre',[
+//     function(session){
+//         //session.send( "What type of movie do you want to watch?");
+//         genrePrompt.beginDialog(session);
 //     },
-//     function (session, results) {
-//         session.userData.Genre = results.response;
+//     function(session,results){
+//         if(!results.response){
+//             session.send('Sorry!');
+//         }
+        
 //         session.endDialog();
+        
 //     }
 // ]);
-
-bot.dialog('/setgenre',[
-    function(session){
-        //session.send( "What type of movie do you want to watch?");
-        genrePrompt.beginDialog(session);
-    },
-    function(session,results){
-        if(!results.response){
-            session.send('Sorry!');
-        }
-        
-        session.endDialog();
-        
-    }
-]);
 
 
 bot.dialog('/recmovie', [
