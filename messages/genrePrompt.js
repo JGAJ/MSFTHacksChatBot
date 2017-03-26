@@ -28,6 +28,8 @@ exports.create = function (bot) {
             session.endDialogWithResult({ response: false });
         })
         .matches('genre',function(session,args){
+            session.send(args);
+            session.send(args.entities);
             var myGenre = builder.EntityRecognizer.findEntity(args.entities, 'genre');
             session.send('here %s',myGenre);
             if(!myGenre){
