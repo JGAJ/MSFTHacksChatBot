@@ -46,8 +46,8 @@ function getImdbId(searchJson) {
   var regexName = /((\w|\W)+) - IMDb/;
   var regexNameResults = regexName.exec(name);
   console.log(name)
-  console.log(regexNameResults[1]);
-  return regexNameResults[1];
+  // console.log(regexNameResults[1]);
+  return name;
   // return regexUrlResults[1];
 }
 
