@@ -119,8 +119,13 @@ bot.dialog('/setgenre', [
         var search = require('./search');
         var resultPromise = search(session.userData.Genre);
         resultPromise.then(function(data, err) {
-          console.log('The result in index.js is: ' + data);
-          session.send('What about ' + data + '?');
+          if (err) {
+            session.send('Whoops. Please try again.')
+          }
+          else {
+            console.log('The result in index.js is: ' + data);
+            session.send('What about ' + data + '?');
+          }
           session.endDialog();
         });
 

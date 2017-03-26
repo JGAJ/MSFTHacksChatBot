@@ -4,10 +4,10 @@ var rp = require('request-promise');
 function searchBing(about) {
   return new Promise(function(resolve, reject) {
     // may need to change spaces in query to +
-    var querySite = 'imdb.com/title';
+    var querySite = 'site:imdb.com/title';
     // var type = 'movie';
-    about = about.replace(' ', '+');
-    var query = querySite + '+' + about;
+    // about = about.replace(' ', '+');
+    var query = querySite + ' ' + about;
 
     var count = 5;
     var market = 'en-ca';
