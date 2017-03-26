@@ -137,7 +137,8 @@ bot.dialog('/setgenre', [
 
 bot.dialog('/recmovie', [
     function(session,results,next){
-        next({response = 'Test this'})
+        var myRes = "Test string";
+        next({response = myRes})
     }
     
     function (session,results) {
