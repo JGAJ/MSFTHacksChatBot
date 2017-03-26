@@ -52,7 +52,20 @@ intents.matches(/^change topic/i, [
 
 intents.matches(/^None/i, [
   function (session) {
-    session.send('Tested');
+    session.send('/Tested');
+  }
+]);
+
+intents.matches(/^topic/i, [
+  function (session) {
+    session.beginDialog('/topic');
+  }
+]);
+
+intents.matches(/^END/i, [
+  function (session) {
+    session.send('pulling the plug');
+    session.reset();
   }
 ]);
 
@@ -78,6 +91,7 @@ bot.dialog('/topic', [
         session.endDialog();
     }
 ]);
+
 if (useEmulator) {
     var restify = require('restify');
     var server = restify.createServer();
