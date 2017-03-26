@@ -41,32 +41,10 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 bot.dialog('/', intents);
 
-intents.matches(/^change/i, [
-  function (session) {
-    session.beginDialog('/topic');
-  },
-  function (session, results) {
-    session.send('Ok..you want to watch %s', session.userData.Topic);
-  }
-]);
-
-intents.matches(/^test/i, [
-  function (session) {
-    session.send(LuisModelUrl);
-  }
-]);
-
-intents.matches(/^topic/i, [
-  function (session) {
-    session.beginDialog('/topic');
-  }
-]);
-
-
 intents.onDefault([
     function (session, args, next) {
         if (!session.userData.Topic) {
-            session.beginDialog('/topic');
+            session.beginDialog('/settopic');
         } else {
             next();
         }
@@ -76,9 +54,39 @@ intents.onDefault([
     }
 ]);
 
-bot.dialog('/topic', [
+intents.matches(/^topic/i, [
+  function (session) {
+    session.beginDialog('/settopic');
+  }
+]);
+
+intents.matches(/^change/i, [
+  function (session) {
+    session.beginDialog('/changetopic');
+  }
+]);
+
+intents.matches(/^test/i, [
+  function (session) {
+    session.send('test intent');
+    session.send('/LuisModelUrl');
+  }
+]);
+
+
+bot.dialog('/settopic', [
     function (session) {
         builder.Prompts.text(session, 'Hi! What would you like to watch today?');
+    },
+    function (session, results) {
+        session.userData.Topic = results.response;
+        session.endDialog();
+    }
+]);
+
+bot.dialog('/changetopic', [
+    function (session) {
+        builder.Prompts.text(session, 'What else would you like to watch?');
     },
     function (session, results) {
         session.userData.Topic = results.response;
