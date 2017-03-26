@@ -23,15 +23,11 @@ exports.create = function (bot) {
             // - This isn't a waterfall so you shouldn't call any of the built-in Prompts.
             session.send(args.prompt || "What type of movie do you want to watch?");
         })
-        .matches(/(give up|quit|skip|yes)/i, function (session) {
-            // Return 'false' to indicate they gave up
-            session.endDialogWithResult({ response: false });
-        })
         .matches('genre',function(session,args){
             //session.send(args);
             session.send('found a genre');
             
-            var myGenre = builder.EntityRecognizer.findEntity(args.entities, 'genre');
+            var myGenre = builder.EntityRecognizer.findEntity(args.intent.entities, 'genre');
             session.send('that genre is %s',myGenre.entity);
             if(!myGenre){
                 session.send(session.dialogData.retryPrompt);
@@ -39,6 +35,11 @@ exports.create = function (bot) {
             //session.userData.Genre = myGenre;
             session.endDialogWithResult({response: myGenre.entity});
         })
+        .matches(/(give up|quit|skip|yes)/i, function (session) {
+            // Return 'false' to indicate they gave up
+            session.endDialogWithResult({ response: false });
+        })
+        
         .onDefault(function (session) {
             
                 // Re-prompt user
