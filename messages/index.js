@@ -74,7 +74,7 @@ intents.matches('change', [
     builder.Prompts.choice(session, 'Change your mind?',['Yes','No']);
   },
   function (session,results){
-    if(results.response=='Yes'){
+    if(results.response.entity=='Yes'){
         session.beginDialog('/setgenre');
     }
   }
@@ -92,8 +92,9 @@ intents.matches('test', [
   }
 ]);
 
-intents.matches('End', [
+intents.matches('end', [
   function (session) {
+    session.userData = {};
     session.perUserInConversationData = {};
     session.userData = {};
     session.conversationData = {};
