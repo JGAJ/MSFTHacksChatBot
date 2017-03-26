@@ -50,7 +50,7 @@ intents.matches(/^change topic/i, [
   }
 ]);
 
-intents.matches(/^None/i, [
+intents.matches(/^test/i, [
   function (session) {
     session.send('/Tested');
   }
