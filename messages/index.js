@@ -65,7 +65,7 @@ intents.matches(/^topic/i, [
 intents.matches(/^END/i, [
   function (session) {
     session.send('pulling the plug');
-    session.reset();
+    session.userData.Topic = NULL;
   }
 ]);
 
