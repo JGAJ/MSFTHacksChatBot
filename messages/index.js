@@ -139,12 +139,12 @@ bot.dialog('/recmovie', [
     function(session,results,next){
         var myRes = "Test string";
         next({response: myRes});
-    }
+    },
     
     function (session,results) {
         session.send('I think you should watch a movie',results.response);
         session.endDialog();
-    },
+    }
 ]);
 
 genrePrompt.create(bot);
