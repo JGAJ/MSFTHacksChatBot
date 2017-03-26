@@ -1,4 +1,4 @@
-var builder = require('../../core/');
+var builder = require("botbuilder");
 var luisAppId = process.env.LuisAppId;
 var luisAPIKey = process.env.LuisAPIKey;
 var luisAPIHostName = process.env.LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
@@ -28,7 +28,12 @@ exports.create = function (bot) {
             session.endDialogWithResult({ response: false });
         })
         .matches('genre',function(session,args){
-            session.endDialogWithResult('');
+            var myGenre = builder.EntityRecognizer.findEntity(args.entities, 'genre');
+            if(!myGenre){
+                session.send(session.dialogData.retryPrompt);
+            } 
+            session.userData.Genre = myGenre;
+            session.endDialogWithResult(response: true);
         })
         .onDefault(function (session) {
             
