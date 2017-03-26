@@ -123,7 +123,6 @@ intents.matches('action',[
     }
 ]);
 
-bot.dialog('/setgenre',intents);
 intents.matches('comedy',[
     function(session){
         session.userData.Genre = 'Comedy';
