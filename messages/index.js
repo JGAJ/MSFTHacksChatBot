@@ -118,6 +118,7 @@ bot.dialog('/setgenre', [
 bot.dialog('/recmovie', [
     function (session) {
         session.send('I think you should watch a %s movie',session.userData.Genre);
+        session.endDialog();
     },
 ]);
 
