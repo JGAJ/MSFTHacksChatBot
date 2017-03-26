@@ -37,23 +37,39 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 });
 
 //bot.dialog('/', intents);
-bot.dialog('/', [
+
+
+bot.dialog('/', intents);
+
+intents.matches(/^change topic/i, [
+  function (session) {
+    session.beginDialog('/topic');
+  },
+  function (session, results) {
+    session.send('Ok..you want to watch %s', session.userData.Topic);
+  }
+]);
+
+intents.onDefault([
+    function (session, args, next) {
+        if (!session.userData.Topic) {
+            session.beginDialog('/topic');
+        } else {
+            next();
+        }
+    },
+    function (session, results) {
+        session.send('I\'ll look up %s!', session.userData.Topic);
+    }
+]);
+
+bot.dialog('/topic', [
     function (session) {
-        builder.Prompts.text(session, "Hello... What's your name?");
+        builder.Prompts.text(session, 'Hi! What would you like to watch today?');
     },
     function (session, results) {
-        session.userData.name = results.response;
-        builder.Prompts.number(session, "Hi " + results.response + ", How many years have you been coding?"); 
-    },
-    function (session, results) {
-        session.userData.coding = results.response;
-        builder.Prompts.choice(session, "What language do you code Node using?", ["JavaScript", "CoffeeScript", "TypeScript"]);
-    },
-    function (session, results) {
-        session.userData.language = results.response.entity;
-        session.send("Got it... " + session.userData.name + 
-                    " you've been programming for " + session.userData.coding + 
-                    " years and use " + session.userData.language + ".");
+        session.userData.Topic = results.response;
+        session.endDialog();
     }
 ]);
 if (useEmulator) {
