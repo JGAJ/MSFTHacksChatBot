@@ -4,7 +4,7 @@ var rp = require('request-promise');
 function searchBing(about) {
   return new Promise(function(resolve, reject) {
     // may need to change spaces in query to +
-    var querySite = 'imdb.com/title';
+    var querySite = 'site%3aimdb.com/title';
     // var type = 'movie';
     about = about.replace(' ', '+');
     var query = querySite + '+' + about;
