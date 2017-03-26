@@ -115,20 +115,20 @@ bot.dialog('/setgenre', [
         builder.Prompts.text(session, 'What would you like to watch today?');
     },
     function (session, results) {
-        session.userData.Genre = results.response;
-        var search = require('./search');
-        var resultPromise = search(session.userData.Genre);
-        resultPromise.then(function(data, err) {
-          if (err) {
-            session.send('Whoops. Please try again.')
-          }
-          else {
-            console.log('The result in index.js is: ' + data);
-            session.send('What about ' + data + '?');
-          }
-          session.endDialog();
-        });
-
+      session.send("Give me a moment to look that up for you");
+      session.userData.Genre = results.response;
+      var search = require('./search');
+      var resultPromise = search(session.userData.Genre);
+      resultPromise.then(function(data, err) {
+        if (err) {
+          session.send('Whoops. Please try again.')
+        }
+        else {
+          console.log('The result in index.js is: ' + data);
+          session.send('What about ' + data + '?');
+        }
+        session.endDialog();
+      });
     }
 ]);
 
