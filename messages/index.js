@@ -7,7 +7,7 @@ http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 "use strict";
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
-
+var genrePrompt = require('./genrePrompt');
 var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
@@ -35,9 +35,6 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .onDefault((session) => {
     session.send('Please type again, I didnt understand \'%s\'.', session.message.text);
 });
-
-//bot.dialog('/', intents);
-
 
 bot.dialog('/', intents);
 
@@ -115,20 +112,20 @@ intents.matches('End', [
 //     }
 // ]);
 
-bot.dialog('/setgenre',intents);
-intents.matches('action',[
+bot.dialog('/setgenre',[
     function(session){
-        session.userData.Genre = 'Action';
+        genrePrompt.beginDialog(session);
+    },
+    function(session,results){
+        if(!results.result){
+            session.send('Sorry!');
+        }
+
         session.endDialog();
+        
     }
 ]);
 
-intents.matches('comedy',[
-    function(session){
-        session.userData.Genre = 'Comedy';
-        session.endDialog();
-    }
-]);
 
 bot.dialog('/recmovie', [
     function (session) {
@@ -136,6 +133,8 @@ bot.dialog('/recmovie', [
         session.endDialog();
     },
 ]);
+
+genrePrompt.create(bot);
 
 if (useEmulator) {
     var restify = require('restify');
