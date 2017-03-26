@@ -44,6 +44,21 @@ bot.dialog('/', intents);
 intents.onDefault([
     function (session, args, next) {
         if (!session.userData.Genre) {
+            session.send('Hello!')
+            session.beginDialog('/setgenre');
+        } else {
+            next();
+        }
+    },
+    function (session, results) {
+        session.send('I dont know what you want');
+    }
+]);
+
+intents.matches('start', [
+  function (session, args, next) {
+        if (!session.userData.Genre) {
+            session.send('Hi!');
             session.beginDialog('/setgenre');
         } else {
             next();
@@ -54,22 +69,26 @@ intents.onDefault([
     }
 ]);
 
-intents.matches('start', [
+intents.matches('change', [
   function (session) {
-    session.beginDialog('/setgenre');
+    builder.Prompts.choice(session, 'Change your mind?',['Yes','No']);
+  },
+  function (session,results){
+    if(results.response=='Yes'){
+        session.beginDialog('/setgenre');
+    }
   }
 ]);
 
-intents.matches('change', [
+intents.matches('recommend', [
   function (session) {
-    session.beginDialog('/changegenre');
+    session.beginDialog('/recmovie');
   }
 ]);
 
 intents.matches('test', [
   function (session) {
     session.send('test intent');
-    session.send('url: %s',LuisModelUrl);
   }
 ]);
 
@@ -84,7 +103,7 @@ intents.matches('End', [
 
 bot.dialog('/setgenre', [
     function (session) {
-        builder.Prompts.text(session, 'Hi! What would you like to watch today?');
+        builder.Prompts.text(session, 'What would you like to watch today?');
     },
     function (session, results) {
         session.userData.Genre = results.response;
@@ -92,14 +111,12 @@ bot.dialog('/setgenre', [
     }
 ]);
 
-bot.dialog('/changegenre', [
+
+
+bot.dialog('/recmovie', [
     function (session) {
-        builder.Prompts.text(session, 'Want to watch something else?');
+        session.send('I think you should watch a %s movie',session.userData.Genre);
     },
-    function (session, results) {
-        session.userData.Genre = results.response;
-        session.endDialog();
-    }
 ]);
 
 if (useEmulator) {
