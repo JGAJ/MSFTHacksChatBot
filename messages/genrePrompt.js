@@ -33,7 +33,7 @@ exports.create = function (bot) {
                 session.send(session.dialogData.retryPrompt);
             } 
             session.userData.Genre = myGenre;
-            session.endDialogWithResult(response: true);
+            session.endDialogWithResult({response: true});
         })
         .onDefault(function (session) {
             
