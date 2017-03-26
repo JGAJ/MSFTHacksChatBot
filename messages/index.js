@@ -41,7 +41,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 bot.dialog('/', intents);
 
-intents.matches(/^change topic/i, [
+intents.matches(/^change/i, [
   function (session) {
     session.beginDialog('/topic');
   },
