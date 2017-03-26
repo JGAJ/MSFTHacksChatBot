@@ -60,7 +60,7 @@ intents.matches('start', [
         }
     },
     function (session, results) {
-        session.send('I\'ll look up %s movies!', session.userData.Genre);
+        session.send('I\'ll look that up');
     }
 ]);
 
@@ -76,7 +76,7 @@ intents.matches('change', [
     }
   },
   function (session, results) {
-        session.send('I\'ll look up %s movies!', session.userData.Genre);
+        session.send('I\'ll look that up', session.userData.Genre);
     }
 ]);
 
@@ -114,6 +114,7 @@ bot.dialog('/setgenre', [
     },
     function (session, results) {
         session.userData.Genre = results.response;
+        session.beginDialog('\recmovie');
         session.endDialog();
     }
 ]);
@@ -135,8 +136,12 @@ bot.dialog('/setgenre', [
 
 
 bot.dialog('/recmovie', [
-    function (session) {
-        session.send('I think you should watch a %s movie',session.userData.Genre);
+    function(session,results,next){
+        next({response = 'Test this'})
+    }
+    
+    function (session,results) {
+        session.send('I think you should watch a movie',results.response);
         session.endDialog();
     },
 ]);
