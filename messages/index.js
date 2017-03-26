@@ -94,6 +94,7 @@ intents.matches('test', [
 
 intents.matches('End', [
   function (session) {
+    session.send('Bye!');
     session.userData = {};
     session.perUserInConversationData = {};
     session.userData = {};
