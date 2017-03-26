@@ -8,7 +8,7 @@ http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 var genrePrompt = require('./genrePrompt');
-
+var myGenres = ['Action','Comedy','Drama']
 var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
@@ -102,7 +102,11 @@ intents.matches('End', [
   }
 ]);
 
-
+intents.matches('pickGenre',[
+function (session) {
+    
+    }
+]);
 // bot.dialog('/setgenre', [
 //     function (session) {
 //         builder.Prompts.text(session, 'What would you like to watch today?');
