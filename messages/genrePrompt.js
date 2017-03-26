@@ -27,7 +27,7 @@ exports.create = function (bot) {
             //session.send(args);
             session.send('found a genre');
             
-            var myGenre = builder.EntityRecognizer.findEntity(args.intent.entities, 'genre');
+            var myGenre = prompt.EntityRecognizer.findEntity(args.intent.entities, 'genre');
             session.send('that genre is %s',myGenre.entity);
             if(!myGenre){
                 session.send(session.dialogData.retryPrompt);
