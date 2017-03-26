@@ -30,14 +30,14 @@ exports.create = function (bot) {
         .matches('genre',function(session,args){
             //session.send(args);
             session.send('found a genre');
-            session.send(args.entities[0]);
+            
             var myGenre = builder.EntityRecognizer.findEntity(args.entities, 'genre');
-            session.send(builder.EntityRecognizer.findEntity(args.entities, 'genre'));
+            session.send('that genre is %s',myGenre.entity);
             if(!myGenre){
                 session.send(session.dialogData.retryPrompt);
             } 
             //session.userData.Genre = myGenre;
-            session.endDialogWithResult({response: myGenre});
+            session.endDialogWithResult({response: myGenre.entity});
         })
         .onDefault(function (session) {
             
