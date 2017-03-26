@@ -23,7 +23,7 @@ exports.create = function (bot) {
             // - This isn't a waterfall so you shouldn't call any of the built-in Prompts.
             session.send(args.prompt || "What type of movie do you want to watch?");
         })
-        .matches('genre',function(session,args){
+        .matches('genre',[function(session,args,next){
             //session.send(args);
             session.send('found a genre');
             
@@ -33,8 +33,15 @@ exports.create = function (bot) {
                 session.send(session.dialogData.retryPrompt);
             } 
             //session.userData.Genre = myGenre;
-            session.endDialogWithResult({response: myGenre.entity});
-        })
+            next({response: myGenre.entity});
+        },
+        function(session,results){
+            if(results.response){
+                session.endDialogWithResult({response:results.response});
+            }
+            session.endDialogWithResult({ response: false });
+        }
+        ])
         .matches(/(give up|quit|skip|yes)/i, function (session) {
             // Return 'false' to indicate they gave up
             session.endDialogWithResult({ response: false });
