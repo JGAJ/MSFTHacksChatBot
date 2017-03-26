@@ -43,26 +43,26 @@ bot.dialog('/', intents);
 
 intents.onDefault([
     function (session, args, next) {
-        if (!session.userData.Topic) {
-            session.beginDialog('/settopic');
+        if (!session.userData.Genre) {
+            session.beginDialog('/setgenre');
         } else {
             next();
         }
     },
     function (session, results) {
-        session.send('I\'ll look up %s!', session.userData.Topic);
+        session.send('I\'ll look up %s movies!', session.userData.Genre);
     }
 ]);
 
-intents.matches('topic', [
+intents.matches('start', [
   function (session) {
-    session.beginDialog('/settopic');
+    session.beginDialog('/setgenre');
   }
 ]);
 
 intents.matches('change', [
   function (session) {
-    session.beginDialog('/changetopic');
+    session.beginDialog('/changegenre');
   }
 ]);
 
@@ -73,23 +73,31 @@ intents.matches('test', [
   }
 ]);
 
+intents.matches('End', [
+  function (session) {
+    session.perUserInConversationData = {};
+    session.userData = {};
+    session.conversationData = {};
+  }
+]);
+
 
 bot.dialog('/settopic', [
     function (session) {
         builder.Prompts.text(session, 'Hi! What would you like to watch today?');
     },
     function (session, results) {
-        session.userData.Topic = results.response;
+        session.userData.Genre = results.response;
         session.endDialog();
     }
 ]);
 
 bot.dialog('/changetopic', [
     function (session) {
-        builder.Prompts.text(session, 'What else would you like to watch?');
+        builder.Prompts.text(session, 'Want to watch something else?');
     },
     function (session, results) {
-        session.userData.Topic = results.response;
+        session.userData.Genre = results.response;
         session.endDialog();
     }
 ]);
