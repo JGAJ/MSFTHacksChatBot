@@ -114,7 +114,7 @@ bot.dialog('/setgenre', [
     },
     function (session, results) {
         session.userData.Genre = results.response;
-        session.beginDialog('\recmovie');
+        
         session.endDialog();
     }
 ]);
@@ -135,17 +135,7 @@ bot.dialog('/setgenre', [
 // ]);
 
 
-bot.dialog('/recmovie', [
-    function(session){
-        var myRes = "Test string";
-        session.userData.recommendation;
-    },
-    
-    function (session) {
-        session.send('I think you should watch a %s movie',session.userData.recommendation);
-        session.endDialog();
-    }
-]);
+
 
 genrePrompt.create(bot);
 
