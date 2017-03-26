@@ -62,7 +62,7 @@ intents.matches('start', [
         }
     },
     function (session, results) {
-        session.send('I\'ll look that up');
+        session.send('Enjoy your movie!');
     }
 ]);
 
