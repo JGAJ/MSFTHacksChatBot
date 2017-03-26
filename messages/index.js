@@ -54,19 +54,19 @@ intents.onDefault([
     }
 ]);
 
-intents.matches(/^topic/i, [
+intents.matches('topic', [
   function (session) {
     session.beginDialog('/settopic');
   }
 ]);
 
-intents.matches(/^change/i, [
+intents.matches('change', [
   function (session) {
     session.beginDialog('/changetopic');
   }
 ]);
 
-intents.matches(/^test/i, [
+intents.matches('test', [
   function (session) {
     session.send('test intent');
     session.send('url: %s',LuisModelUrl);
