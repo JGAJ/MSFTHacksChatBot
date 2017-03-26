@@ -62,12 +62,6 @@ intents.matches(/^topic/i, [
   }
 ]);
 
-intents.matches(/^END/i, [
-  function (session) {
-    session.send('pulling the plug');
-    session.userData.Topic = NULL;
-  }
-]);
 
 intents.onDefault([
     function (session, args, next) {
