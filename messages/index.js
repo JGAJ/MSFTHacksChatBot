@@ -103,30 +103,30 @@ intents.matches('End', [
 ]);
 
 
-bot.dialog('/setgenre', [
-    function (session) {
-        builder.Prompts.text(session, 'What would you like to watch today?');
-    },
-    function (session, results) {
-        session.userData.Genre = results.response;
-        session.endDialog();
-    }
-]);
-
-// bot.dialog('/setgenre',[
-//     function(session){
-//         //session.send( "What type of movie do you want to watch?");
-//         genrePrompt.beginDialog(session);
+// bot.dialog('/setgenre', [
+//     function (session) {
+//         builder.Prompts.text(session, 'What would you like to watch today?');
 //     },
-//     function(session,results){
-//         if(!results.response){
-//             session.send('Sorry!');
-//         }
-        
+//     function (session, results) {
+//         session.userData.Genre = results.response;
 //         session.endDialog();
-        
 //     }
 // ]);
+
+bot.dialog('/setgenre',[
+    function(session){
+        //session.send( "What type of movie do you want to watch?");
+        genrePrompt.beginDialog(session);
+    },
+    function(session,results){
+        if(!results.response){
+            session.send('Sorry!');
+        }
+        
+        session.endDialog();
+        
+    }
+]);
 
 
 bot.dialog('/recmovie', [
