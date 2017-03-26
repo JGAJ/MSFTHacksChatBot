@@ -78,7 +78,7 @@ intents.matches('change', [
     }
   },
   function (session, results) {
-        session.send('I\'ll look that up', session.userData.Genre);
+        session.send('Enjoy your movie');
     }
 ]);
 
@@ -117,7 +117,7 @@ bot.dialog('/setgenre', [
     function (session, results) {
         session.userData.Genre = results.response;
         var search = require('./search');
-        var resultPromise = search('movie', session.userData.Genre);
+        var resultPromise = search(session.userData.Genre);
         resultPromise.then(function(data, err) {
           console.log('The result in index.js is: ' + data);
           session.send('What about ' + data + '?');
