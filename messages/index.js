@@ -67,7 +67,7 @@ intents.matches(/^change/i, [
 ]);
 
 intents.matches(/^test/i, [
-  function (session,LuisModelUrl) {
+  function (session) {
     session.send('test intent');
     session.send('url: %s',LuisModelUrl);
   }
