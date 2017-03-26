@@ -28,7 +28,7 @@ exports.create = function (bot) {
             session.send('found a genre');
             
             var myGenre = prompt.EntityRecognizer.findEntity(args.intent.entities, 'genre');
-            session.send('that genre is %s',myGenre.entity);
+            //session.send('that genre is %s',myGenre.entity);
             if(!myGenre){
                 session.send(session.dialogData.retryPrompt);
             } 
@@ -37,7 +37,10 @@ exports.create = function (bot) {
         },
         function(session,results){
             if(results.response){
-                session.endDialogWithResult({response:results.response});
+                session.send('here');
+                session.userData.Genre=results.response;
+                session.send('now here');
+                session.endDialogWithResult({response:true});
             }
             session.endDialogWithResult({ response: false });
         }
