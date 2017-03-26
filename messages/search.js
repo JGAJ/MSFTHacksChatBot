@@ -4,7 +4,7 @@ var rp = require('request-promise');
 function searchBing(about) {
   return new Promise(function(resolve, reject) {
     // may need to change spaces in query to +
-    var querySite = 'site:imdb.com/title';
+    var querySite = 'imdb.com/title';
     // var type = 'movie';
     about = about.replace(' ', '+');
     var query = querySite + '+' + about;
@@ -45,7 +45,7 @@ function getImdbId(searchJson) {
   var regexUrlResults = regexUrl.exec(url);
   var regexName = /((\w|\W)+) - IMDb/;
   var regexNameResults = regexName.exec(name);
-  console.log(name)
+  console.log(name);
   // console.log(regexNameResults[1]);
   return name;
   // return regexUrlResults[1];
