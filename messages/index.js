@@ -50,6 +50,12 @@ intents.matches(/^change topic/i, [
   }
 ]);
 
+intents.matches(/^None/i, [
+  function (session) {
+    session.send('Tested');
+  }
+]);
+
 intents.onDefault([
     function (session, args, next) {
         if (!session.userData.Topic) {
