@@ -92,7 +92,7 @@ intents.matches('test', [
   }
 ]);
 
-intents.matches('end', [
+intents.matches('End', [
   function (session) {
     session.userData = {};
     session.perUserInConversationData = {};
