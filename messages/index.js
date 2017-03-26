@@ -119,10 +119,10 @@ bot.dialog('/setgenre',[
         genrePrompt.beginDialog(session);
     },
     function(session,results){
-        if(!results.result){
+        if(!results.result.response){
             session.send('Sorry!');
         }
-
+        session.userData.Genre = results.response;
         session.endDialog();
         
     }

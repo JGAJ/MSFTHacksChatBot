@@ -29,14 +29,14 @@ exports.create = function (bot) {
         })
         .matches('genre',function(session,args){
             //session.send(args);
-            session.send(args.entities);
+            //session.send(args.entities);
             var myGenre = builder.EntityRecognizer.findEntity(args.entities, 'genre');
             session.send('here %s',myGenre);
             if(!myGenre){
                 session.send(session.dialogData.retryPrompt);
             } 
-            session.userData.Genre = myGenre;
-            session.endDialogWithResult({response: true});
+            //session.userData.Genre = myGenre;
+            session.endDialogWithResult({response: myGenre});
         })
         .onDefault(function (session) {
             
