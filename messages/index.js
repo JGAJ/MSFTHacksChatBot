@@ -70,11 +70,16 @@ intents.matches('change', [
   function (session) {
     builder.Prompts.choice(session, 'Change your mind?',['Yes','No']);
   },
-  function (session,results){
+  function (session,results,args,next){
     if(results.response.entity=='Yes'){
         session.beginDialog('/setgenre');
+    } else {
+        next()
     }
-  }
+  },
+  function (session, results) {
+        session.send('I\'ll look up %s movies!', session.userData.Genre);
+    }
 ]);
 
 intents.matches('recommend', [
@@ -100,17 +105,31 @@ intents.matches('End', [
 ]);
 
 
-bot.dialog('/setgenre', [
-    function (session) {
-        builder.Prompts.text(session, 'What would you like to watch today?');
-    },
-    function (session, results) {
-        session.userData.Genre = results.response;
+// bot.dialog('/setgenre', [
+//     function (session) {
+//         builder.Prompts.text(session, 'What would you like to watch today?');
+//     },
+//     function (session, results) {
+//         session.userData.Genre = results.response;
+//         session.endDialog();
+//     }
+// ]);
+
+bot.dialog('/setgenre',intents);
+intents.matches('action',[
+    function(session){
+        session.userData.Genre = 'Action';
         session.endDialog();
     }
 ]);
 
-
+bot.dialog('/setgenre',intents);
+intents.matches('comedy',[
+    function(session){
+        session.userData.Genre = 'Comedy';
+        session.endDialog();
+    }
+]);
 
 bot.dialog('/recmovie', [
     function (session) {
