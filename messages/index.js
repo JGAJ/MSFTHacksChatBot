@@ -42,16 +42,13 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 bot.dialog('/', intents);
 
 intents.onDefault([
-    function (session, args, next) {
+    function (session) {
         if (!session.userData.Genre) {
             session.send('Hello!')
             session.beginDialog('/setgenre');
         } else {
-            next();
+            session.send('I dont know what you want');
         }
-    },
-    function (session, results) {
-        session.send('I dont know what you want');
     }
 ]);
 
