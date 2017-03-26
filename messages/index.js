@@ -82,7 +82,7 @@ intents.matches('End', [
 ]);
 
 
-bot.dialog('/settopic', [
+bot.dialog('/setgenre', [
     function (session) {
         builder.Prompts.text(session, 'Hi! What would you like to watch today?');
     },
@@ -92,7 +92,7 @@ bot.dialog('/settopic', [
     }
 ]);
 
-bot.dialog('/changetopic', [
+bot.dialog('/changegenre', [
     function (session) {
         builder.Prompts.text(session, 'Want to watch something else?');
     },
